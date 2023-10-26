@@ -46,48 +46,48 @@ else
             % Header = NO && TimeCorrection = NO (InSiDa)
             if bag.d_C0hdr0tmc == 1 
                 % gps
-                writetable(bag.T_GPS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_GPS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
+                writetable(bag.T_GPS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_GPS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
                 % his
-                writetable(bag.T_HIS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_HIS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
+                writetable(bag.T_HIS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_HIS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
                 % hiw
-                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_HIW_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
+                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_HIW_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
             end
 
             % Header = YES && TimeCorrection = NO
             if bag.d_C1hdr0tmc == 1 
                 % gps
-                writetable(bag.T_GPS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_GPS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
+                writetable(bag.T_GPS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_GPS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
                 % his
-                writetable(bag.T_HIS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
+                writetable(bag.T_HIS_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
                 % hiw
-                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIW_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)    
+                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIW_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)    
             end        
             
             % Header = NO && TimeCorrection = YES (RAVE Forschungsarchiv)
             if bag.d_C0hdr1tmc == 1 
                 % gps
-                writetable(bag.T_GPS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_tmc_GPS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
+                writetable(bag.T_GPS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_tmc_GPS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
                 % his
-                writetable(bag.T_HIS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_tmc_HIS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
+                writetable(bag.T_HIS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_tmc_HIS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)
                 % hiw
-                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_HIW_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)    
+                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_HIW_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)    
             end
 
             % Header = YES && TimeCorrection = YES (Tableau)
             if bag.d_C1hdr1tmc == 1
                 % gps
-                writetable(bag.T_GPS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_tmc_GPS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
+                writetable(bag.T_GPS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_tmc_GPS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
                 % his
-                writetable(bag.T_HIS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_tmc_HIS_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
+                writetable(bag.T_HIS_qc_tmcr,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_tmc_HIS_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)
                 % hiw
-                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIW_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)    
+                writetable(bag.T_HIW_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_HIW_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)    
             end                
 
         case {'RADAC'}           
             bag.Table_qc_array = bag.Table_qc; 
             bag.Table_qc_array.Time = datestr(bag.Table_qc_array.Time,'yyyymmddHHMM');
             bag.Table_qc_array = table2array(bag.Table_qc_array);
-            bag.s_filename = fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'));
+            bag.s_filename = fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'));
 
             % Header = NO && TimeCorrection = NO (InSiDa)
             if bag.d_C0hdr0tmc == 1 
@@ -99,7 +99,7 @@ else
 
             % Header = YES && TimeCorrection = NO (Tableau)
             if bag.d_C1hdr0tmc == 1 
-                bag.s_filename_hdr = string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat')));
+                bag.s_filename_hdr = string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat')));
                 writetable(bag.Table_qc, bag.s_filename_hdr,'Delimiter','tab','WriteVariableNames',true)                               
             end         
 
@@ -107,7 +107,7 @@ else
             bag.Table_qc_array = bag.Table_qc; 
             bag.Table_qc_array.Time = datestr(bag.Table_qc_array.Time,'yyyymmddHHMM');
             bag.Table_qc_array = table2array(bag.Table_qc_array);
-            bag.s_filename = fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'));
+            bag.s_filename = fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'));
 
             % Header = NO && TimeCorrection = NO (InSiDa)
             if bag.d_C0hdr0tmc == 1 
@@ -121,7 +121,7 @@ else
 
             % Header = YES && TimeCorrection = NO (Tableau)
             if bag.d_C1hdr0tmc == 1 
-                bag.s_filename_hdr = string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat')));
+                bag.s_filename_hdr = string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat')));
                 writetable(bag.Table_qc, bag.s_filename_hdr,'Delimiter','tab','WriteVariableNames',true)                            
             end
 
@@ -131,13 +131,13 @@ else
             % Header = NO && TimeCorrection = NO (InSiDa)
             if bag.d_C0hdr0tmc == 1 
                 % Table_qc
-                writetable(bag.Table_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)                
+                writetable(bag.Table_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_Insida_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',false)                
             end                  
 
             % Header = YES && TimeCorrection = NO
             if bag.d_C1hdr0tmc == 1 
                 % Table_qc
-                writetable(bag.Table_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v22_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)                
+                writetable(bag.Table_qc,string(fullfile(bag.s_outgoing_folder,bag.s_station,strcat(bag.s_station,'_',bag.s_sensor,'_hdr_v25_',datestr(bag.date_from,'yyyy-mm-dd'),'_',datestr(bag.date_to,'yyyy-mm-dd'),'.dat'))),'Delimiter','tab','WriteVariableNames',true)                
             end        
 
         otherwise
