@@ -47,10 +47,18 @@ else
             bag.T_HIS.Time = bag.T_HIS_orgtme; % rounded timestamps are replaced with original timestamps
             
             % gps
-            bag.T_GPS.Time = bag.T_GPS_orgtme; % rounded timestamps are replaced with original timestamps
-            
-            if isfield(bag,'CF_indicator')  
+            bag.T_GPS.Time = bag.T_GPS_orgtme; % rounded timestamps are replaced with original timestamps            
+
+            if isfield(bag,'CF_indicator')
                 if bag.CF_indicator == 1
+                    bag.T_HIS = bag.T_HIS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to
+                    bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to   
+                else
+                    bag.T_HIS = bag.T_HIS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to
+                    bag.T_GPS = bag.T_GPS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to                   
+                end
+            elseif isfield(bag,'Waves5_indicator')
+                if bag.Waves5_indicator == 1
                     bag.T_HIS = bag.T_HIS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to
                     bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to   
                 else
@@ -59,11 +67,11 @@ else
                 end
             elseif contains(bag.s_station,{'HHF','STO'}) % select LKN stations
                 bag.T_HIS = bag.T_HIS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to
-                bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to      
+                bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to   
             else
                 bag.T_HIS = bag.T_HIS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to
-                bag.T_GPS = bag.T_GPS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to       
-            end
+                bag.T_GPS = bag.T_GPS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to
+            end            
             
         case {'RADAC', 'RADAC_SINGLE'}    
             % hiw
@@ -166,7 +174,50 @@ else
                 % VSTS
                 bag.T_HIS_qc.dqf_VSTS = repmat("9999999999999999",height(bag.T_HIS),1);
                 bag.T_HIS_qc.fqf_VSTS = 9*ones(height(bag.T_HIS),1);                    
-            end            
+            end    
+
+        case 'RADAC'
+            if contains(bag.s_station,'BO1') % select BO1
+                % VHM0
+                bag.T_HIS_qc.dqf_VHM0 = repmat("9999999999999999",height(bag.T_HIS),1);
+                bag.T_HIS_qc.fqf_VHM0 = 9*ones(height(bag.T_HIS),1);
+
+                % VTM02
+                bag.T_HIS_qc.dqf_VTM02 = repmat("9999999999999999",height(bag.T_HIS),1);
+                bag.T_HIS_qc.fqf_VTM02 = 9*ones(height(bag.T_HIS),1);
+
+                % VPSP
+                bag.T_HIS_qc.dqf_VPSP = repmat("9999999999999999",height(bag.T_HIS),1);
+                bag.T_HIS_qc.fqf_VPSP = 9*ones(height(bag.T_HIS),1);
+
+                % VMDR
+                bag.T_HIS_qc.dqf_VMDR = repmat("9999999999999999",height(bag.T_HIS),1);
+                bag.T_HIS_qc.fqf_VMDR = 9*ones(height(bag.T_HIS),1);       
+
+                % VZMX
+                bag.T_HIW_qc.dqf_VZMX = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VZMX = 9*ones(height(bag.T_HIW),1);
+
+                % VTZM
+                bag.T_HIW_qc.dqf_VTZM = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VTZM = 9*ones(height(bag.T_HIW),1);           
+
+                % VH110
+                bag.T_HIW_qc.dqf_VH110 = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VH110 = 9*ones(height(bag.T_HIW),1);      
+
+                % VAVT
+                bag.T_HIW_qc.dqf_VAVT = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VAVT = 9*ones(height(bag.T_HIW),1);        
+
+                % VTZA
+                bag.T_HIW_qc.dqf_VTZA = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VTZA = 9*ones(height(bag.T_HIW),1);          
+
+                % VZNW
+                bag.T_HIW_qc.dqf_VZNW = repmat("9999999999999999",height(bag.T_HIW),1);
+                bag.T_HIW_qc.fqf_VZNW = 9*ones(height(bag.T_HIW),1);                       
+            end
     end
 
     % prepare bag.T_GPS_qc
@@ -206,6 +257,12 @@ else
             T_LEV_qc_temp(T_LEV_qc_temp > 4) = NaN;  %#ok<NASGU>
             eval(['bag.T_LEV_qc.fqf_' bag.VarNam_LEV{i} ' = max(T_LEV_qc_temp,[],2); clear indx str *_temp;'])    
         end   
+        
+        if contains(bag.s_station,'BO1') % select BO1
+            % SLEV_H10
+            bag.T_LEV_qc.dqf_SLEV_H10 = repmat("9999999999999999",height(bag.T_LEV),1);
+            bag.T_LEV_qc.fqf_SLEV_H10 = 9*ones(height(bag.T_LEV),1);
+        end
     end
     
     %% Special Cases

@@ -139,38 +139,42 @@ switch upper(bag.s_sensor)
             else
                 eval(['MAX' bag.VarNam_HIS{i} 'DIFFSTD = bag.metadatabase.MAX' bag.VarNam_HIS{i} 'DIFFSTD(bag.metadatabase.platform_code == bag.s_station);'])
                 eval(['T_HIS_temp = bag.T_HIS(~ismissing(bag.T_HIS.' bag.VarNam_HIS{i} ',[NaN -9999.000]),''' bag.VarNam_HIS{i} '''); % ignore NaNs and -9999.000 values'])                
-                if height(T_HIS_temp) >= 3
-                    for j = 1:1:height(T_HIS_temp)
-                        if j == 1 && diff(T_HIS_temp.Time(j:j+1)) < minutes(61)
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end '])
-                        elseif j == 1 && diff(T_HIS_temp.Time(j:j+1)) >= minutes(61)
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end '])                            
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end '])                            
-                        elseif j == height(T_HIS_temp) && diff(T_HIS_temp.Time(j-1:j)) < minutes(61)
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
-                        elseif j == height(T_HIS_temp) && diff(T_HIS_temp.Time(j-1:j)) >= minutes(61)
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end'])                            
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])                            
-                        elseif all(diff(T_HIS_temp.Time(j-1:j+1)) < minutes(61)) 
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) + abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= 2*MAX' bag.VarNam_HIS{i} 'DIFFSTD);  % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
-                        else
-                            eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) + abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= 2*MAX' bag.VarNam_HIS{i} 'DIFFSTD);  % pass'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end'])
-                            eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
-                        end
-                    end                       
+                if ~isempty(T_HIS_temp)
+                    if height(T_HIS_temp) >= 3
+                        for j = 1:1:height(T_HIS_temp)
+                            if j == 1 && diff(T_HIS_temp.Time(j:j+1)) < minutes(61)
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end '])
+                            elseif j == 1 && diff(T_HIS_temp.Time(j:j+1)) >= minutes(61)
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end '])                            
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end '])                            
+                            elseif j == height(T_HIS_temp) && diff(T_HIS_temp.Time(j-1:j)) < minutes(61)
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
+                            elseif j == height(T_HIS_temp) && diff(T_HIS_temp.Time(j-1:j)) >= minutes(61)
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) <= MAX' bag.VarNam_HIS{i} 'DIFFSTD); % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end'])                            
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])                            
+                            elseif all(diff(T_HIS_temp.Time(j-1:j+1)) < minutes(61)) 
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) + abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= 2*MAX' bag.VarNam_HIS{i} 'DIFFSTD);  % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
+                            else
+                                eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = double(abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j-1)) + abs(T_HIS_temp.' bag.VarNam_HIS{i} '(j) - T_HIS_temp.' bag.VarNam_HIS{i} '(j+1)) <= 2*MAX' bag.VarNam_HIS{i} 'DIFFSTD);  % pass'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 1; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 2; end'])
+                                eval(['if T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) == 0; T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15(j) = 3; end'])
+                            end
+                        end                       
+                    else
+                        eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15 = zeros(height(bag.T_HIS),1); % value not evaluated'])
+                    end
+                    table_temp = synchronize(bag.T_HIS, T_HIS_temp,'first','fillwithmissing'); %#ok<NASGU>
+                    eval(['table_temp.dqf_' bag.VarNam_HIS{i} '_15(isnan(table_temp.dqf_' bag.VarNam_HIS{i} '_15)) = 9; % missing value  '])
+                    eval(['bag.T_HIS.dqf_' bag.VarNam_HIS{i} '_15 = table_temp.dqf_' bag.VarNam_HIS{i} '_15; clear *temp;'])
+                    eval(['bag.T_HIS.dqf_' bag.VarNam_HIS{i} '_15(ismissing(bag.T_HIS.' bag.VarNam_HIS{i} ',-9999.000)) = 4; % if value is -9999.000, flag = 4'])
                 else
-                    eval(['T_HIS_temp.dqf_' bag.VarNam_HIS{i} '_15 = zeros(height(bag.T_HIS),1); % value not evaluated'])
+                    eval(['bag.T_HIS.dqf_' bag.VarNam_HIS{i} '_15(isnan(bag.T_HIS.' bag.VarNam_HIS{i} ')) = 9; % missing value'])
                 end
-                table_temp = synchronize(bag.T_HIS, T_HIS_temp,'first','fillwithmissing'); %#ok<NASGU>
-                eval(['table_temp.dqf_' bag.VarNam_HIS{i} '_15(isnan(table_temp.dqf_' bag.VarNam_HIS{i} '_15)) = 9; % missing value  '])
-                eval(['bag.T_HIS.dqf_' bag.VarNam_HIS{i} '_15 = table_temp.dqf_' bag.VarNam_HIS{i} '_15; clear *temp;'])
-                eval(['bag.T_HIS.dqf_' bag.VarNam_HIS{i} '_15(ismissing(bag.T_HIS.' bag.VarNam_HIS{i} ',-9999.000)) = 4; % if value is -9999.000, flag = 4'])
             end
         end 
         

@@ -55,8 +55,33 @@ switch upper(bag.s_sensor)
             bag.T_HIS.dqf_02_position = temp_table.dqf_02_position; clear temp_table;
 
             % hiw
-            if isfield(bag,'CF_indicator') 
+            if isfield(bag,'CF_indicator')
                 if bag.CF_indicator == 1
+                    % fill dqf_02_position with corresponding values from Table_GPS
+                    % if CF_indicator is true, then T_GPS.Time does not need to be
+                    % recalculated to beginning of measurement
+                    temp_table = synchronize(bag.T_HIW,bag.T_GPS,'first','fillwithmissing'); % caution: 'fillwithconstant' 'Constant' '9' creates a bug, instead of '9' -> '57' is created
+                    temp_table.dqf_02_position(isnan(temp_table.dqf_02_position)) = 9; % missing value  
+                    bag.T_HIW.dqf_02_position = temp_table.dqf_02_position; clear temp_table;     
+                else
+                    % fill dqf_02_position with corresponding values from Table_GPS
+                    % because *GPS.txt has a timestamp when it was received and *.hiw
+                    % has a timestamp when measurement startet, Table_GPS.Time needs to
+                    % be temporarily brought "back" to the corresponding start_time
+                    % (minus 30 min and then the closest hour or half-hour)
+                    T_GPS_tmp = bag.T_GPS;
+                    T_GPS_tmp.Time.Minute = 30 * floor(T_GPS_tmp.Time.Minute/30); % dateshift time variable to the closest hour or half-hour
+                    T_GPS_tmp.Time = T_GPS_tmp.Time - duration([00 30 00]);            
+                    S = timerange(bag.T_HIW.Time(1)-minutes(5),bag.T_HIW.Time(end)+minutes(5));
+                    T_GPS_tmp = T_GPS_tmp(S,:); clear S; % select timerange of Table_HIW    
+                    S = withtol(bag.T_HIW.Time, seconds(59));
+                    T_GPS_tmp = T_GPS_tmp(S,:); clear S; % select timestamps close to Table_HIW   
+                    temp_table = synchronize(bag.T_HIW, T_GPS_tmp,'first','fillwithmissing');
+                    temp_table.dqf_02_position(isnan(temp_table.dqf_02_position)) = 9; % missing value  
+                    bag.T_HIW.dqf_02_position = temp_table.dqf_02_position; clear temp_table T_GPS_tmp;      
+                end
+            elseif isfield(bag,'Waves5_indicator')
+                if bag.Waves5_indicator == 1
                     % fill dqf_02_position with corresponding values from Table_GPS
                     % if CF_indicator is true, then T_GPS.Time does not need to be
                     % recalculated to beginning of measurement
