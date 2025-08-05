@@ -1,5 +1,5 @@
 # bshwaves
-Data-quality-control for wave measurements, written in Matlab, by Mayumi Wilms, BSH Hamburg, 10/2023.
+Data-quality-control for wave measurements, written in Matlab, by Mayumi Wilms and Martin Moritz, BSH Hamburg, 08/2025.
 
 Please use *"\bshwaves\02_work\m_files\main_dqc_seastate_realtime_from_to.mlx"* to learn more.
 
