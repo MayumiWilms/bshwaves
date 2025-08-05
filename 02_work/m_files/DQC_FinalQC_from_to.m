@@ -57,14 +57,6 @@ else
                     bag.T_HIS = bag.T_HIS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to
                     bag.T_GPS = bag.T_GPS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to                   
                 end
-            elseif isfield(bag,'Waves5_indicator')
-                if bag.Waves5_indicator == 1
-                    bag.T_HIS = bag.T_HIS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to
-                    bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to   
-                else
-                    bag.T_HIS = bag.T_HIS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to
-                    bag.T_GPS = bag.T_GPS((timerange(bag.date_from+minutes(30), bag.date_to+minutes(30),'closed')),:); % select the timerange date_from to date_to                   
-                end
             elseif contains(bag.s_station,{'HHF','STO'}) % select LKN stations
                 bag.T_HIS = bag.T_HIS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to
                 bag.T_GPS = bag.T_GPS((timerange(bag.date_from, bag.date_to,'closed')),:); % select the timerange date_from to date_to   
@@ -271,6 +263,41 @@ else
         bag.T_HIS_qc.fqf_VMDR(isbetween(bag.T_HIS.Time,bag.tlower,datetime('04.05.2023 23:59:59','TimeZone','UTC'))) = 4;
         bag.T_HIS_qc.fqf_VPED(isbetween(bag.T_HIS.Time,bag.tlower,datetime('04.05.2023 23:59:59','TimeZone','UTC'))) = 4;
         bag.T_HIS_qc.fqf_VPSP(isbetween(bag.T_HIS.Time,bag.tlower,datetime('04.05.2023 23:59:59','TimeZone','UTC'))) = 4;
+    elseif and(bag.s_station == "FN1",bag.s_sensor == "RADAC")
+        % tupper = time of Radac software update
+        bag.T_HIS_qc.fqf_VMDR(isbetween(bag.T_HIS.Time,bag.tlower,datetime('03.04.2023 10:00:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VPED(isbetween(bag.T_HIS.Time,bag.tlower,datetime('03.04.2023 10:00:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VPSP(isbetween(bag.T_HIS.Time,bag.tlower,datetime('03.04.2023 10:00:00','TimeZone','UTC'))) = 4;
+    elseif and(bag.s_station == "BO1",bag.s_sensor == "RADAC")
+        bag.T_HIS_qc.fqf_VHM0(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTPK(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTM02(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VPED(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VPSP(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTM20(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTM01(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTM24(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTPC(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTNU(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VTES(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VPQP(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_VSTS(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_TEMP(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIS_qc.fqf_k(isbetween(bag.T_HIS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+
+        bag.T_HIW_qc.fqf_VZMX(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VTZM(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VH110(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VT110(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VAVH(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VAVT(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VHZA(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VTZA(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VZNW(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_HIW_qc.fqf_VTZC(isbetween(bag.T_HIW.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+
+        bag.T_GPS_qc.fqf_LATITUDE(isbetween(bag.T_GPS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
+        bag.T_GPS_qc.fqf_LONGITUDE(isbetween(bag.T_GPS.Time,datetime('27.12.2023 15:00:00','TimeZone','UTC'),datetime('19.02.2024 07:32:00','TimeZone','UTC'))) = 4;
     end
 
 end

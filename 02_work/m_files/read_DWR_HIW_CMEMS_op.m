@@ -26,7 +26,7 @@ if ~isempty(dataArray{1,1})
         Table_HIW.Time = datetime(Table_HIW.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS''Z'); 
     catch
         Table_HIW.Time = datetime(Table_HIW.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS'); 
-        disp([datestr(date_now) ' ' fullfile(s_InPath,s_HiwFiles) ' is post-processed.'])
+        disp([datestr(date_now) ' ' fullfile(s_InPath,s_HiwFiles) ' is post-processed or Waves5.'])
     end
     Table_HIW.VZMX = Table_HIW.VZMX ./ 100; % convert cm in m
     Table_HIW.VH110 = Table_HIW.VH110 ./ 100; % convert cm in m

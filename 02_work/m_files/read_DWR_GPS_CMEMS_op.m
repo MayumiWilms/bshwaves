@@ -20,7 +20,7 @@ if ~isempty(s_GpsFiles)
             Table_GPS.Time = datetime(Table_GPS.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS''Z'); 
         catch
             Table_GPS.Time = datetime(Table_GPS.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS'); 
-            disp([datestr(date_now) ' ' fullfile(s_InPath,s_GpsFiles) ' is post-processed.'])
+            disp([datestr(date_now) ' ' fullfile(s_InPath,s_GpsFiles) ' is post-processed or Waves5.'])
         end   
         Table_GPS.Properties.VariableUnits = {'','','decimal degrees','decimal degrees'};
         Table_GPS.Time.TimeZone = 'UTC';

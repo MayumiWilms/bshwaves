@@ -2,7 +2,7 @@ function [bag] = DQC_rmdate(bag)
     
 switch upper(bag.s_sensor)
     case 'DWR'
-        if contains(bag.s_station,{'HHF','STO'}) % select LKN stations
+        if contains(bag.s_station,{'HHF','STO','SEE'}) % select LKN and NLWKN stations
         else
             %% save the original
             bag.T_HIS_cmplt = bag.T_HIS;

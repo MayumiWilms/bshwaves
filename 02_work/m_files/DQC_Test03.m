@@ -25,20 +25,26 @@ switch upper(bag.s_sensor)
     case 'DWR'
     
     case {'RADAC', 'RADAC_SINGLE'}  
-        if contains(bag.s_station,'BO1') % select BO1 station
-            bag.T_HIS.dqf_03_compl_his(bag.T_HIS.dqf_03_compl_his==4) = 1; % good
-            bag.T_HIW.dqf_03_compl_hiw(bag.T_HIW.dqf_03_compl_hiw==4) = 1; % good
-            bag.T_GPS.dqf_03_compl_gps(bag.T_GPS.dqf_03_compl_gps==4) = 1; % good   
-            bag.T_LEV.dqf_03_compl_lev(bag.T_LEV.dqf_03_compl_lev==4) = 1; % good
+        if isfield(bag,'Table_RAW')     
+            
+        elseif isfield(bag,'Table_SPT')
+            
+        else
+            if contains(bag.s_station,'BO1') % select BO1 station
+                bag.T_HIS.dqf_03_compl_his(bag.T_HIS.dqf_03_compl_his==4) = 1; % good
+                bag.T_HIW.dqf_03_compl_hiw(bag.T_HIW.dqf_03_compl_hiw==4) = 1; % good
+                bag.T_GPS.dqf_03_compl_gps(bag.T_GPS.dqf_03_compl_gps==4) = 1; % good   
+                bag.T_LEV.dqf_03_compl_lev(bag.T_LEV.dqf_03_compl_lev==4) = 1; % good
+            end
+    
+            % if radac controler did not store the whole parameter set
+            %%{
+            bag.T_HIS.dqf_03_compl_his(bag.T_HIS.dqf_03_compl_his==4) = 2; % probably good
+            bag.T_HIW.dqf_03_compl_hiw(bag.T_HIW.dqf_03_compl_hiw==4) = 2; % probably good
+            bag.T_GPS.dqf_03_compl_gps(bag.T_GPS.dqf_03_compl_gps==4) = 2; % probably good   
+            bag.T_LEV.dqf_03_compl_lev(bag.T_LEV.dqf_03_compl_lev==4) = 2; % probably good
+            %}            
         end
-
-        % if radac controler did not store the whole parameter set
-        %{
-        bag.T_HIS.dqf_03_compl_his(bag.T_HIS.dqf_03_compl_his==4) = 2; % probably good
-        bag.T_HIW.dqf_03_compl_hiw(bag.T_HIW.dqf_03_compl_hiw==4) = 2; % probably good
-        bag.T_GPS.dqf_03_compl_gps(bag.T_GPS.dqf_03_compl_gps==4) = 2; % probably good   
-        bag.T_LEV.dqf_03_compl_lev(bag.T_LEV.dqf_03_compl_lev==4) = 2; % probably good
-        %}
         
     case 'AWAC'
         

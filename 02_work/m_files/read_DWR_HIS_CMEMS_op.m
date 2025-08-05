@@ -22,7 +22,7 @@ if ~isempty(dataArray{1,1})
         Table_HIS.Time = datetime(Table_HIS.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS''Z'); 
     catch
         Table_HIS.Time = datetime(Table_HIS.Time,'InputFormat','yyyy-MM-dd''T''HH:mm:ss.SSS'); 
-        disp([datestr(date_now) ' ' fullfile(s_InPath,s_HisFiles) ' is post-processed.'])
+        disp([datestr(date_now) ' ' fullfile(s_InPath,s_HisFiles) ' is post-processed or Waves5.'])
     end    
     Table_HIS.VHM0 = Table_HIS.VHM0 ./ 100; % convert cm in m
     Table_HIS.Properties.VariableUnits =  {'','s','°','°','s','m','s','s',...
